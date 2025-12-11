@@ -9,7 +9,7 @@ export default function Header() {
 
             <nav className="flex gap-6 text-lg">
                 <Link to="/" className="hover:text-yellow-300 transition">Home</Link>
-                <Link to="/watchlist" className="hover:text-yellow-300 transition">Watchlist</Link>"
+                <Link to="/watchlist" className="hover:text-yellow-300 transition">Watchlist</Link>
             </nav>
         </header>
     );

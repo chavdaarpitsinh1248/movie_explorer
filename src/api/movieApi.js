@@ -1,4 +1,4 @@
-const API_KEY = import.meta.env.MOVIE_APP_OMDB_API_KEY;
+const API_KEY = import.meta.env.VITE_OMDB_API_KEY;
 
 export async function searchMovies(query) {
     const url = `https://www.omdbapi.com/?apikey=${API_KEY}&s=${query}`;
