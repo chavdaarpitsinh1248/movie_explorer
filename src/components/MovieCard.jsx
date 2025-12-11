@@ -15,8 +15,8 @@ export default function MovieCard({ movie }) {
 
             {/* Movie Info */}
             <div className="p-4">
-                <h3 className="font-bold text-lg truncate">{movie.Title}</h3>"
-                <p className="text-gray-600 text-sm">{movie.Year}</p>"
+                <h3 className="font-bold text-lg truncate">{movie.Title}</h3>
+                <p className="text-gray-600 text-sm">{movie.Year}</p>
             </div>
         </div>
     );
