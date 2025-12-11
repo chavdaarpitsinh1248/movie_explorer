@@ -1,17 +1,48 @@
+import { useState, useEffect } from "react";
 import MovieGrid from "../components/MovieGrid";
+import { searchMovies } from "../api/movieApi";
 
 
 export default function Home() {
-    const dummyMovies = [
-        { Title: "Avengers", Year: "2012", Poster: "https://m.media-amazon.com/images/M/MV5B.jpeg", imdbID: "1" },
-        { Title: "Batman", Year: "2008", Poster: "https://m.media-amazon.com/images/M/MV5B.jpeg", imdbID: "2" },
-        { Title: "Interstellar", Year: "2014", Poster: "https://m.media-amazon.com/images/M/MV5B.jpeg", imdbID: "3" },
-        { Title: "Inception", Year: "2010", Poster: "https://m.media-amazon.com/images/M/MV5B.jpeg", imdbID: "4" },
-        { Title: "Joker", Year: "2019", Poster: "https://m.media-amazon.com/images/M/MV5B.jpeg", imdbID: "5" }
-    ];
+    const [query, setQuery] = useState("avengers"); // default search
+    const [movies, setMovies] = useState([]);
+
+    async function loadMovies() {
+        const result = await searchMovies(query);
+        setMovies(result);
+    }
+
+    useEffect(() => {
+        loadMovies();
+    }, []);
+
+    const handleSearch = async (e) => {
+        e.preventDefault();
+        loadMovies();
+    };
+
     return (
         <div className="mt-6">
-            <MovieGrid movies={dummyMovies} />
+            {/* Search Box */}
+            <form onSubmit={handleSearch} className="mb-6 flex gap-3">
+                <input 
+                    type="text"
+                    placeholder="Search movies..."
+                    className="flex-1 border rounded-lg px-4 py-2 shadow"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                />
+
+                <button
+                    type="submit"
+                    className="px-6 py-2 bg-black text-white rounded-lg hover:bg-gray800 transition"
+                >
+                    Search
+                </button>
+            </form>
+
+            {/* Movie Grid */}
+            <MovieGrid movies={movies} />
         </div>
     );
 }
