@@ -6,16 +6,17 @@ export default function Home() {
   const [query, setQuery] = useState("avengers");
   const [year, setYear] = useState("");
   const [type, setType] = useState("");
+  const [page, setPage] = useState(1);
   const [movies, setMovies] = useState([]);
 
   const loadMovies = async () => {
-    const result = await searchMovies(query, year, type);
+    const result = await searchMovies(query, year, type, page);
     setMovies(result);
   };
 
   useEffect(() => {
     loadMovies();
-  }, []);
+  }, [page]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -63,6 +64,12 @@ export default function Home() {
 
       {/* Movie Grid */}
       <MovieGrid movies={movies} />
+
+    {/* Pagination */}
+      <div>
+        <button disabled={page===1} onClick={() => setPage(page-1)}>Prev</button>
+        <button onClick={() => setPage(page+1)}>Next</button>
+      </div>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 const API_KEY = import.meta.env.VITE_OMDB_API_KEY;
 
-export async function searchMovies(query, year = "", type = "") {
-    let url = `https://www.omdbapi.com/?apikey=${API_KEY}&s=${query}`;
+export async function searchMovies(query, year = "", type = "", page=1) {
+    let url = `https://www.omdbapi.com/?apikey=${API_KEY}&s=${query}&page=${page}`;
     if (year) url += `&y=${year}`;
     if (type) url += `&type=${type}`;
 
