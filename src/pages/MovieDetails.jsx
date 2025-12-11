@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getMovieById } from "../api/movieApi";
+import { useWatchlist } from "../context/WatchlistContext";
 
 export default function MovieDetails() {
     const { id } = useParams();
     const [movie,setMovie] = useState(null);
+    const { addToWatchlist, removeFromWatchlist, isInWatchlist } = useWatchlist();
 
     async function loadMovie() {
         const data = await getMovieById(id);
@@ -54,6 +56,23 @@ export default function MovieDetails() {
                   <div className="bg-yellow-300 inline-block px-4 py-2 rounded-xl text-lg font-bold shadow">
                     ⭐ {movie.imdbRating}
                   </div>
+
+                  {/* Watchlist Button */}
+                  {!isInWatchlist(movie.imdbID) ? (
+                    <button
+                        onClick={() => addToWatchlist(movie)}
+                        className="mt-6 px-6 py-2 bg-black text-white rounded-lg"
+                    >
+                        + Add to Watchlist
+                    </button>
+                ) : (
+                    <button
+                        onClick={() => removeFromWatchlist(movie.imdbID)}
+                        className="mt-6 px-6 py-2 bg-red-600 text-white rounded-lg"
+                    >
+                        Remove from Watchlist
+                    </button>
+                )}
                 </div>
             </div>
         </div>
