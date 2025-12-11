@@ -16,7 +16,7 @@ export default function Home() {
 
   useEffect(() => {
     loadMovies();
-  }, [page]);
+  }, [page, query, year, type]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -66,9 +66,21 @@ export default function Home() {
       <MovieGrid movies={movies} />
 
     {/* Pagination */}
-      <div>
-        <button disabled={page===1} onClick={() => setPage(page-1)}>Prev</button>
-        <button onClick={() => setPage(page+1)}>Next</button>
+      <div className="flex gap-4 mt-4">
+        <button
+          disabled={page === 1}
+          onClick={() => setPage(page - 1)}
+          className="px-4 py-2 bg-gray-300 rounded"
+        >
+          Prev
+        </button>
+
+        <button
+          onClick={() => setPage(page + 1)}
+          className="px-4 py-2 bg-gray-300 rounded"
+        >
+          Next
+        </button>
       </div>
     </div>
   );
