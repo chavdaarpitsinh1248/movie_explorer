@@ -31,7 +31,7 @@ export default function MovieCard({ movie }) {
                 </button>
             ) : (
                 <button
-                    onClick={() => removeFromWatchlist(movie)}
+                    onClick={() => removeFromWatchlist(movie.imdbID)}
                     className="text-sm px-3 py-1 bg-red-600 text-white rounded-lg"
                 >
                     Remove
