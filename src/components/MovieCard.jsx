@@ -3,6 +3,7 @@ import { useWatchlist } from "../context/WatchlistContext";
 
 export default function MovieCard({ movie }) {
     const { addToWatchlist, removeFromWatchlist, isInWatchlist } = useWatchlist();
+    
     return (
         <div className="bg-white shadow rounded-xl overflow-hidden hover:scale-105 transition cursor-pointer">
 

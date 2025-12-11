@@ -4,19 +4,23 @@ const WatchlistContext = createContext();
 
 export function WatchlistProvider({ children }) {
     const [watchlist, setWatchlist] = useState([]);
+    const [loaded, setLoaded] = useState(false);
 
-    // load from localStorage when app starts
+    // Load from localStorage
     useEffect(() => {
         const saved = localStorage.getItem("watchlist");
-        if(saved) {
+        if (saved) {
             setWatchlist(JSON.parse(saved));
         }
+        setLoaded(true);
     }, []);
 
-    // save to localStorage whenever watchlist changes
+    // Save to localStorage AFTER load
     useEffect(() => {
-        localStorage.setItem("watchlist", JSON.stringify(watchlist));
-    }, [watchlist]);
+        if (loaded) {
+            localStorage.setItem("watchlist", JSON.stringify(watchlist));
+        }
+    }, [watchlist, loaded]);
 
     function addToWatchlist(movie) {
         if (!watchlist.find((m) => m.imdbID === movie.imdbID)) {
