@@ -6,11 +6,36 @@ import { useWatchlist } from "../context/WatchlistContext";
 export default function MovieDetails() {
     const { id } = useParams();
     const [movie, setMovie] = useState(null);
+    const [aiInfo, setAiInfo] = useState(null);
+    const [aiLoading, setAiLoading] = useState(false);
     const { addToWatchlist, removeFromWatchlist, isInWatchlist } = useWatchlist();
+
+    // Fetch AI summary + OTT info
+    async function fetchAIInfo(title, plot) {
+        try {
+            setAiLoading(true);
+
+            const res = await fetch("http://localhost:5000/api/gemini", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ movieTitle: title, plot }),
+            });
+
+            const data = await res.json();
+            setAiInfo(data.aiText); // raw text return from AI
+        } catch (err) {
+            console.error("AI fetch error:", err);
+        } finally {
+            setAiLoading(false);
+        }
+    }
 
     async function loadMovie() {
         const data = await getMovieById(id);
         setMovie(data);
+
+        // Load AI summary after OMDB data arrives
+        fetchAIInfo(data.Title, data.Plot);
     }
 
     useEffect(() => {
@@ -75,6 +100,21 @@ export default function MovieDetails() {
                     )}
                 </div>
             </div>
+
+            {/* AI Section */}
+            <div className="mt-10 p-6 bg-gray-100 dark:bg-gray-800 rounded-xl shadow">
+                <h2 className="text-2xl font-semibold mb-3">AI Summary & OTT Availability</h2>
+
+                {aiLoading ? (
+                    <p className="text-gray-600 dark:text-gray-300">Generating AI insights...</p>
+                ) : aiInfo ? (
+                    <div className="text-gray-800 dark:text-gray-200 whitespace-pre-line leading-relaxed">
+                        {aiInfo}
+                    </div>
+                ) : (
+                    <p className="text-gray-600 dark:text-gray-300">No AI info</p>
+                )}
+            </div>
         </div>
-    )
+    );
 }
