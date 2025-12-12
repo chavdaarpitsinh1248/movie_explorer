@@ -1,5 +1,4 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getMovieById } from "../api/movieApi";
 import { useWatchlist } from "../context/WatchlistContext";
@@ -11,22 +10,19 @@ export default function MovieDetails() {
     const [aiLoading, setAiLoading] = useState(false);
     const { addToWatchlist, removeFromWatchlist, isInWatchlist } = useWatchlist();
 
-    // Fetch AI summary + OTT info
-    async function fetchAIInfo(title, plot) {
+    // Fetch AI summary
+    async function fetchAIInfo(title) {
         try {
             setAiLoading(true);
 
             const res = await fetch("http://localhost:5000/api/gemini", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ movieTitle: title, plot }),
+                body: JSON.stringify({ movieTitle: title }),
             });
 
             const data = await res.json();
-            // Prefer structured JSON summary if available
-            const text = data.structured?.summary || data.aiText || "No AI info";
-            setAiInfo(text);
-
+            setAiInfo(data.aiText || "No AI info");
         } catch (err) {
             console.error("AI fetch error:", err);
         } finally {
@@ -34,12 +30,13 @@ export default function MovieDetails() {
         }
     }
 
+
     async function loadMovie() {
         const data = await getMovieById(id);
         setMovie(data);
 
-        // Load AI summary after OMDB data arrives
-        fetchAIInfo(data.Title, data.Plot);
+        // Fetch AI insights
+        fetchAIInfo(data.Title);
     }
 
     useEffect(() => {
@@ -52,7 +49,7 @@ export default function MovieDetails() {
 
     return (
         <div className="max-w-5xl mx-auto mt-10 p-6 bg-white dark:bg-gray-900 dark:text-white rounded-xl shadow-lg">
-            <div className="flex felx-col md:flex-row gap-8">
+            <div className="flex flex-col md:flex-row gap-8">
 
                 {/* Poster */}
                 <img
@@ -72,9 +69,7 @@ export default function MovieDetails() {
                         <span className="px-3 py-1 bg-gray-200 dark:bg-gray-500 rounded-full">{movie.Rated}</span>
                     </div>
 
-                    <p className="text-gray-700 leading-relaxed mb-4 dark:text-gray-200">
-                        {movie.Plot}
-                    </p>
+                    <p className="text-gray-700 leading-relaxed mb-4 dark:text-gray-200">{movie.Plot}</p>
 
                     <p className="mb-2"><span className="font-semibold">Actors:</span> {movie.Actors}</p>
                     <p className="mb-2"><span className="font-semibold">Director:</span> {movie.Director}</p>
