@@ -23,7 +23,10 @@ export default function MovieDetails() {
             });
 
             const data = await res.json();
-            setAiInfo(data.aiText); // raw text return from AI
+            // Prefer structured JSON summary if available
+            const text = data.structured?.summary || data.aiText || "No AI info";
+            setAiInfo(text);
+
         } catch (err) {
             console.error("AI fetch error:", err);
         } finally {
