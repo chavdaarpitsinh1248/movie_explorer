@@ -7,10 +7,10 @@ import Footer from "./components/Footer";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter className="dark:bg-gray-600">
       <Header />
 
-      <main className="min-h-screen px-4 py-6">
+      <main className="min-h-screen px-4 py-6 dark:bg-gray-600">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/movie/:id" element={<MovieDetails />} />

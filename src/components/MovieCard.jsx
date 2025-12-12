@@ -6,7 +6,7 @@ export default function MovieCard({ movie }) {
     const saved = watchlist.some((m) => m.imdbID === movie.imdbID);
 
     return (
-        <div className="bg-white rounded-xl shadow hover:shadow-xl transition-all duration-300 overflow-hidden group">
+        <div className="bg-white dark:bg-gray-800 dark:text-white rounded-xl shadow hover:shadow-xl transition-all duration-300 overflow-hidden group">
             {/* Image */}
             <Link to={`/movie/${movie.imdbID}`}>
                 <img

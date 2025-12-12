@@ -28,13 +28,23 @@ export default function Home() {
   };
 
   return (
-    <div className="mt-6">
+    <div className="mt-6 dark:bg-gray-600">
       {/* Search + Filters */}
-      <form onSubmit={handleSearch} className="flex flex-wrap gap-3 mb-6 items-center px-4 py-3 bg-white shadow rounded-xl">
+      <form
+        onSubmit={handleSearch}
+        className="flex flex-wrap gap-3 mb-6 items-center 
+                  px-4 py-4 bg-white dark:bg-gray-900 
+                  shadow-lg rounded-xl border border-gray-200 dark:border-gray-800"
+      >
         <input
           type="text"
           placeholder="Search..."
-          className="flex-1 border rounded-lg px-4 py-2"
+          className="border border-gray-300 dark:border-gray-700 
+                    bg-white dark:bg-gray-800 
+                    text-gray-900 dark:text-white
+                    placeholder-gray-500 dark:placeholder-gray-400
+                    px-4 py-2 rounded-lg focus:ring-2 
+                    focus:ring-blue-500 dark:focus:ring-blue-600 outline-none"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
@@ -42,13 +52,22 @@ export default function Home() {
         <input
           type="number"
           placeholder="Year"
-          className="w-24 border rounded-lg px-3 py-2"
+          className="border border-gray-300 dark:border-gray-700 
+                    bg-white dark:bg-gray-800 
+                    text-gray-900 dark:text-white
+                    placeholder-gray-500 dark:placeholder-gray-400
+                    px-4 py-2 rounded-lg focus:ring-2 
+                    focus:ring-blue-500 dark:focus:ring-blue-600 outline-none"
           value={year}
           onChange={(e) => setYear(e.target.value)}
         />
 
         <select
-          className="border rounded-lg px-3 py-2"
+          className="border border-gray-300 dark:border-gray-700 
+                    bg-white dark:bg-gray-800 
+                    text-gray-900 dark:text-white
+                    px-3 py-2 rounded-lg focus:ring-2
+                    focus:ring-blue-500 dark:focus:ring-blue-600 outline-none"
           value={type}
           onChange={(e) => setType(e.target.value)}
         >
@@ -58,13 +77,17 @@ export default function Home() {
           <option value="episode">Episode</option>
         </select>
 
-        <button className="px-6 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition">
+        <button
+          className="px-6 py-2 bg-black dark:bg-blue-600 
+                    text-white rounded-lg 
+                    hover:bg-gray-800 dark:hover:bg-blue-700 
+                    transition shadow-md"
+        >
           Search
         </button>
       </form>
 
-
-      {/* Movie Grid And Skeleton */}
+      {/* Movie Grid / Skeleton */}
       {loading ? (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
           {Array.from({ length: 10 }).map((_, i) => (
@@ -76,22 +99,28 @@ export default function Home() {
       )}
 
       {/* Pagination */}
-      <div className="flex gap-4 mt-4">
+      <div className="flex gap-4 mt-6">
         <button
           disabled={page === 1}
           onClick={() => setPage(page - 1)}
-          className="px-4 py-2 bg-gray-300 rounded"
+          className="px-4 py-2 rounded-lg 
+                    bg-gray-300 dark:bg-blue-500 
+                    text-black dark:text-white
+                    disabled:opacity-40"
         >
           Prev
         </button>
 
         <button
           onClick={() => setPage(page + 1)}
-          className="px-4 py-2 bg-gray-300 rounded"
+          className="px-4 py-2 rounded-lg 
+                    bg-gray-300 dark:bg-blue-500 
+                    text-black dark:text-white"
         >
           Next
         </button>
       </div>
     </div>
+
   );
 }

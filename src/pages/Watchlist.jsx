@@ -6,10 +6,10 @@ export default function Watchlist() {
 
     return (
         <div className="mt-6">
-            <h1 className="text-3xl font-bold mb-6">Your Watchlist</h1>
+            <h1 className="text-3xl dark:text-white font-bold mb-6">Your Watchlist</h1>
 
             {watchlist.length === 0 ? (
-                <p className="text-gray-600">No movies added yet.</p>
+                <p className="text-gray-600 dark:text-gray-300">No movies added yet.</p>
             ) : (
                 <MovieGrid movies={watchlist} />
             )}
