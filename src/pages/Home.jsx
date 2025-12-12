@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import MovieGrid from "../components/MovieGrid";
 import { searchMovies } from "../api/movieApi";
