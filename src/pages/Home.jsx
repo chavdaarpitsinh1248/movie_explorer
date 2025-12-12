@@ -30,11 +30,11 @@ export default function Home() {
   return (
     <div className="mt-6">
       {/* Search + Filters */}
-      <form onSubmit={handleSearch} className="mb-6 flex flex-wrap gap-3 items-center">
+      <form onSubmit={handleSearch} className="flex flex-wrap gap-3 mb-6 items-center px-4 py-3 bg-white shadow rounded-xl">
         <input
           type="text"
-          placeholder="Search movies..."
-          className="flex-1 border rounded-lg px-4 py-2 shadow"
+          placeholder="Search..."
+          className="flex-1 border rounded-lg px-4 py-2"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
@@ -42,13 +42,13 @@ export default function Home() {
         <input
           type="number"
           placeholder="Year"
-          className="w-24 border rounded-lg px-3 py-2 shadow"
+          className="w-24 border rounded-lg px-3 py-2"
           value={year}
           onChange={(e) => setYear(e.target.value)}
         />
 
         <select
-          className="border rounded-lg px-3 py-2 shadow"
+          className="border rounded-lg px-3 py-2"
           value={type}
           onChange={(e) => setType(e.target.value)}
         >
@@ -58,13 +58,11 @@ export default function Home() {
           <option value="episode">Episode</option>
         </select>
 
-        <button
-          type="submit"
-          className="px-6 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition"
-        >
+        <button className="px-6 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition">
           Search
         </button>
       </form>
+
 
       {/* Movie Grid And Skeleton */}
       {loading ? (
