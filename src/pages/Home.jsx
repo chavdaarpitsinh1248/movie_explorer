@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import MovieGrid from "../components/MovieGrid";
 import { searchMovies } from "../api/movieApi";
+import SkeletonCard from "../components/SkeletonCard";
 
 export default function Home() {
   const [query, setQuery] = useState("avengers");
@@ -8,10 +9,13 @@ export default function Home() {
   const [type, setType] = useState("");
   const [page, setPage] = useState(1);
   const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const loadMovies = async () => {
+    setLoading(true);
     const result = await searchMovies(query, year, type, page);
     setMovies(result);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -62,10 +66,18 @@ export default function Home() {
         </button>
       </form>
 
-      {/* Movie Grid */}
-      <MovieGrid movies={movies} />
+      {/* Movie Grid And Skeleton */}
+      {loading ? (
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+          {Array.from({ length: 10 }).map((_, i) => (
+            <SkeletonCard key={i} />
+          ))}
+        </div>
+      ) : (
+        <MovieGrid movies={movies} />
+      )}
 
-    {/* Pagination */}
+      {/* Pagination */}
       <div className="flex gap-4 mt-4">
         <button
           disabled={page === 1}
