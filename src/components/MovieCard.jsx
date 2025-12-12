@@ -2,42 +2,42 @@ import { Link } from "react-router-dom";
 import { useWatchlist } from "../context/WatchlistContext";
 
 export default function MovieCard({ movie }) {
-    const { addToWatchlist, removeFromWatchlist, isInWatchlist } = useWatchlist();
-    
-    return (
-        <div className="bg-white shadow rounded-xl overflow-hidden hover:scale-105 transition cursor-pointer">
+    const { addToWatchlist, removeFromWatchlist, watchlist } = useWatchlist();
+    const saved = watchlist.some((m) => m.imdbID === movie.imdbID);
 
-            {/* Movie Poster */}
+    return (
+        <div className="bg-white rounded-xl shadow hover:shadow-xl transition-all duration-300 overflow-hidden group">
+            {/* Image */}
             <Link to={`/movie/${movie.imdbID}`}>
                 <img
-                    src={movie.Poster !== "N/A" ? movie.Poster : "/no-poster.png"}
+                    src={movie.Poster !== "N/A" ? movie.Poster : "/placeholder.png"}
                     alt={movie.Title}
-                    className="w-full h-64 object-cover"
+                    className="w-full h-72 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
             </Link>
 
             {/* Movie Info */}
-            <div className="p-4">
-                <h3 className="font-bold text-lg truncate">{movie.Title}</h3>
-                <p className="text-gray-600 text-sm">{movie.Year}</p>
-            </div>
+            <div className="p-3">
+                <h2 className="font-semibold text-lg line-clamp-1">{movie.Title}</h2>
+                <p className="text-sm text-gray-500">{movie.Year}</p>
 
-            {/* Watchlist Button */}
-            {!isInWatchlist(movie.imdbID) ? (
-                <button
-                    onClick={() => addToWatchlist(movie)}
-                    className="text-sm px-3 py-1 bg-black text-white rounded-lg"
-                >
-                    + Add
-                </button>
-            ) : (
-                <button
-                    onClick={() => removeFromWatchlist(movie.imdbID)}
-                    className="text-sm px-3 py-1 bg-red-600 text-white rounded-lg"
-                >
-                    Remove
-                </button>
-            )}
+                {/* Watchlist Button */}
+                {saved ? (
+                    <button
+                        onClick={() => removeFromWatchlist(movie.imdbID)}
+                        className="mt-3 w-full py-2 rounded-lg bg-red-500 text-white hover:bg-red-600 transition"
+                    >
+                        Remove from Watchlist
+                    </button>
+                ) : (
+                    <button
+                        onClick={() => addToWatchlist(movie)}
+                        className="mt-3 w-full py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition"
+                    >
+                        Add to Watchlist
+                    </button>
+                )}
+            </div>
         </div>
     );
 }
