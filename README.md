@@ -1,18 +1,118 @@
-# React + Vite
+Movie Explorer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Live Website: [ https://chavarpitmovieexplorer.netlify.app/ ]
 
-Currently, two official plugins are available:
+Movie Explorer is a frontend-only web application built using React and Vite.
+It allows users to search for movies and view detailed information using the OMDb API.
+This project is created to practice modern React development, API integration, and deployment workflows.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+Features
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+* Search movies by title
+* View detailed movie information such as poster, year, plot, and ratings
+* Filter movies by year and type (movie or series)
+* Responsive user interface
+* Fast performance with Vite
 
-Note: This will impact Vite dev & build performances.
+---
 
-## Expanding the ESLint configuration
+Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+* React
+* Vite
+* JavaScript (ES6+)
+* CSS / Tailwind CSS (if used)
+* OMDb API
+
+---
+
+Project Overview
+
+* Frontend-only application
+* No backend
+* No database
+* Movie data is fetched directly from the OMDb public API
+
+---
+
+Environment Variables
+
+This project uses an API key stored in an environment file that is not committed to GitHub.
+
+Create a file named .env in the root directory and add:
+
+VITE_OMDB_API_KEY=your_omdb_api_key_here
+
+Important notes:
+
+* Environment variables must start with VITE_
+* The .env file is included in .gitignore
+* When deploying to Netlify, the same variable must be added in the site’s Environment Variables
+
+---
+
+Local Development Setup
+
+1. Clone the repository
+
+git clone [https://github.com/your-username/movie-explorer.git](https://github.com/your-username/movie-explorer.git)
+cd movie-explorer
+
+2. Install dependencies
+
+npm install
+
+3. Start the development server
+
+npm run dev
+
+The application will run at:
+[http://localhost:5173](http://localhost:5173)
+
+---
+
+Build for Production
+
+npm run build
+
+The production-ready files will be generated inside the dist folder.
+
+---
+
+Deployment
+
+This project is deployed using Netlify with GitHub integration.
+
+Netlify build settings:
+Build command: npm run build
+Publish directory: dist
+
+Every push to the main branch automatically redeploys the site.
+
+---
+
+What I Learned
+
+* Building component-based applications using React
+* Fetching and handling data from third-party APIs
+* Managing environment variables securely
+* Deploying frontend applications using GitHub and Netlify
+
+---
+
+License
+
+This project is created for educational and learning purposes.
+
+---
+
+Acknowledgements
+
+OMDb API for providing movie data
+React and Vite communities for excellent tooling
+
+---
+
+If you like this project, feel free to star the repository.
